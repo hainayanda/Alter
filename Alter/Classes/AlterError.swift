@@ -7,9 +7,14 @@
 
 import Foundation
 
-struct AlterError: LocalizedError {
-    let errorDescription: String?
-    let failureReason: String?
+/// Error object generated from Alter
+public struct AlterError: LocalizedError {
+    
+    /// Description of error
+    public let errorDescription: String?
+    
+    /// Reason of failure
+    public let failureReason: String?
     
     init(errorDescription: String, failureReason: String? = nil) {
         self.errorDescription = errorDescription
