@@ -192,22 +192,7 @@ public extension Alterable {
         return container
     }
     
-    internal func prepareProperty(_ alterableProperty: AlterableProperty, label: String) {
-        alterableProperty.key = alterableProperty.key ?? label.replacingOccurrences(
-            of: "^_",
-            with: "",
-            options: .regularExpression,
-            range: nil
-        )
-    }
-    
     internal var alterableProperties: [AlterableProperty] {
-        let reflection = Mirror(reflecting: self)
-        return reflection.children.compactMap { (label, value) -> AlterableProperty?  in
-            guard let label = label,
-                  let alterableProperty = value as? AlterableProperty else { return nil }
-            prepareProperty(alterableProperty, label: label)
-            return alterableProperty
-        }
+        Mirror(reflecting: self).alterableProperties
     }
 }

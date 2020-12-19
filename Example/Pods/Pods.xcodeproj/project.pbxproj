@@ -97,6 +97,7 @@
 		BB275651258DD73800A910B6 /* AlterableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB27564B258DD73800A910B6 /* AlterableProperty.swift */; };
 		BB275652258DD73800A910B6 /* DecoderEncoder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB27564C258DD73800A910B6 /* DecoderEncoder+Extensions.swift */; };
 		BB275653258DD73800A910B6 /* Alterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB27564D258DD73800A910B6 /* Alterable.swift */; };
+		BBD91C44258E1EB000B4DCBE /* Mirror+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD91C43258E1EB000B4DCBE /* Mirror+Extensions.swift */; };
 		BE56C54CD29F23A1C631645390E8569D /* ErrorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330449905CBD0256B295240608C83E2E /* ErrorUtility.swift */; };
 		BFEBC90223F66B0FF770B92B1C670BCF /* QuickConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = D92C57D471EE3A427AB823E625B39311 /* QuickConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C051C0411627BD5FCDA031782EB1F716 /* DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = DD94E448E7BD07EB326E452082EEC7E1 /* DSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -258,6 +259,7 @@
 		BB27564B258DD73800A910B6 /* AlterableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlterableProperty.swift; sourceTree = "<group>"; };
 		BB27564C258DD73800A910B6 /* DecoderEncoder+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DecoderEncoder+Extensions.swift"; sourceTree = "<group>"; };
 		BB27564D258DD73800A910B6 /* Alterable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alterable.swift; sourceTree = "<group>"; };
+		BBD91C43258E1EB000B4DCBE /* Mirror+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mirror+Extensions.swift"; sourceTree = "<group>"; };
 		BD1BF7A6A240D39BCDD16B3A9B1C3D27 /* Functional.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Functional.swift; path = Sources/Nimble/Utils/Functional.swift; sourceTree = "<group>"; };
 		C0141526DC69D1961DD345A499664266 /* Quick-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Quick-prefix.pch"; sourceTree = "<group>"; };
 		C3EB8A06385FDF6B0E54A10DD2C3E86A /* Pods-Alter_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Alter_Tests-dummy.m"; sourceTree = "<group>"; };
@@ -506,12 +508,13 @@
 		BB27562F258DD6DB00A910B6 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				BB27564C258DD73800A910B6 /* DecoderEncoder+Extensions.swift */,
-				BB27564A258DD73800A910B6 /* TypeAlterer.swift */,
-				BB27564B258DD73800A910B6 /* AlterableProperty.swift */,
 				BB27564D258DD73800A910B6 /* Alterable.swift */,
+				BB27564B258DD73800A910B6 /* AlterableProperty.swift */,
 				BB275648258DD73800A910B6 /* AlterCodingKey.swift */,
 				BB275649258DD73800A910B6 /* AlterError.swift */,
+				BB27564C258DD73800A910B6 /* DecoderEncoder+Extensions.swift */,
+				BBD91C43258E1EB000B4DCBE /* Mirror+Extensions.swift */,
+				BB27564A258DD73800A910B6 /* TypeAlterer.swift */,
 			);
 			name = Classes;
 			path = Alter/Classes;
@@ -854,6 +857,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBD91C44258E1EB000B4DCBE /* Mirror+Extensions.swift in Sources */,
 				92D0B052A28140F7A4F4A7AFFB6371DF /* Alter-dummy.m in Sources */,
 				BB275650258DD73800A910B6 /* TypeAlterer.swift in Sources */,
 				BB275651258DD73800A910B6 /* AlterableProperty.swift in Sources */,
