@@ -372,7 +372,7 @@ fileprivate func assertShouldSameAsStub(for alterable: AlterableThing) {
     expect(alterable.userName).to(equal("username"))
     expect(alterable.firstName).to(equal("First"))
     expect(alterable.lastName).to(equal("Last"))
-    expect(alterable.birthDate?.timeIntervalSince1970).to(equal(673808400))
+    expect(abs((alterable.birthDate?.timeIntervalSince1970 ?? 0) - 673808400)).to(beLessThan(86400))
     expect(alterable.lastAccessedTime.timeIntervalSince1970).to(equal(1608854400))
     expect(alterable.trackedAccessedTime[0].timeIntervalSince1970).to(equal(1608854400))
     expect(alterable.trackedAccessedTime[1].timeIntervalSince1970).to(equal(1608854000))
