@@ -45,6 +45,15 @@ public enum DecodeStrategy {
 public extension Alterable {
     var decodeStrategy: DecodeStrategy { .ignoreUnknownKey }
     
+    subscript<Value, Key: RawRepresentable>(mappedKey key: Key) -> Value? where Key.RawValue == String {
+        get {
+            return self[mappedKey: key.rawValue]
+        }
+        set {
+            self[mappedKey: key.rawValue] = newValue
+        }
+    }
+    
     subscript<Value>(mappedKey key: String) -> Value? {
         get {
             guard let property = alterableProperties.first(where: { $0.key == key }) else {
