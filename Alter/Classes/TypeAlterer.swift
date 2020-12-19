@@ -7,19 +7,27 @@
 
 import Foundation
 
+/// Protocol for type converter from any value to any codable
 public protocol TypeAlterer {
     associatedtype Value
     associatedtype AlteredValue: Codable
     
+    /// Method to convert Value into the Codable one
+    /// - Parameter value: Real Value
     func alter(value: Value) -> AlteredValue
+    
+    /// Method to convert AlteredValue into the real value
+    /// - Parameter value: Codable AlteredValue
     func alterBack(value: AlteredValue) -> Value
 }
 
 public extension TypeAlterer {
+    /// optional version of TypeAlterer
     var optionally: OptionalAlterer<Self> {
         .init(alterer: self)
     }
     
+    /// array version of TypeAlterer
     var forArray: ArrayAlterer<Self> {
         .init(alterer: self)
     }
