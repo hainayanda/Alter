@@ -8,19 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		04D5980E3AAC4E241E3D64A1 /* Pods_Alter_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8A9DB21B3BD0CC9747C4C82 /* Pods_Alter_Tests.framework */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		BB27565B258DD77300A910B6 /* AlterableThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB27565A258DD77300A910B6 /* AlterableThing.swift */; };
+		BB275661258DD79F00A910B6 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB27565E258DD79F00A910B6 /* TestUtils.swift */; };
+		BB275662258DD79F00A910B6 /* IntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB27565F258DD79F00A910B6 /* IntegrationTests.swift */; };
+		BB275663258DD79F00A910B6 /* Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB275660258DD79F00A910B6 /* Stub.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13AFE1F120CCBE0169808555 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		13AFE1F120CCBE0169808555 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Alter_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Alter_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		77B032B81710D22044668EBE /* Pods-Alter_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alter_Tests.release.xcconfig"; path = "Target Support Files/Pods-Alter_Tests/Pods-Alter_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		8A3A6D47A659ECB4CCEFA7D8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		8A3A6D47A659ECB4CCEFA7D8 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		BB275659258DD77300A910B6 /* Alter_Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Alter_Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		BB27565A258DD77300A910B6 /* AlterableThing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlterableThing.swift; sourceTree = "<group>"; };
+		BB27565E258DD79F00A910B6 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
+		BB27565F258DD79F00A910B6 /* IntegrationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationTests.swift; sourceTree = "<group>"; };
+		BB275660258DD79F00A910B6 /* Stub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
 		C8A9DB21B3BD0CC9747C4C82 /* Pods_Alter_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Alter_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF324AA1DCE97A87B0BC7602 /* Pods-Alter_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alter_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Alter_Tests/Pods-Alter_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		D7BFB3DB8A543ACE55EB056C /* Alter.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = Alter.podspec; path = ../Alter.podspec; sourceTree = "<group>"; };
+		D7BFB3DB8A543ACE55EB056C /* Alter.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Alter.podspec; path = ../Alter.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,8 +72,12 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				BB27565A258DD77300A910B6 /* AlterableThing.swift */,
+				BB27565F258DD79F00A910B6 /* IntegrationTests.swift */,
+				BB275660258DD79F00A910B6 /* Stub.swift */,
+				BB27565E258DD79F00A910B6 /* TestUtils.swift */,
+				BB275659258DD77300A910B6 /* Alter_Tests-Bridging-Header.h */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -95,7 +106,6 @@
 				CF324AA1DCE97A87B0BC7602 /* Pods-Alter_Tests.debug.xcconfig */,
 				77B032B81710D22044668EBE /* Pods-Alter_Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -131,14 +141,9 @@
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
-					607FACCF1AFB9204008FA782 = {
-						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0900;
-					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0900;
-						TestTargetID = 607FACCF1AFB9204008FA782;
+						LastSwiftMigration = 1230;
 					};
 				};
 			};
@@ -147,6 +152,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -222,7 +228,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				BB27565B258DD77300A910B6 /* AlterableThing.swift in Sources */,
+				BB275661258DD79F00A910B6 /* TestUtils.swift in Sources */,
+				BB275662258DD79F00A910B6 /* IntegrationTests.swift in Sources */,
+				BB275663258DD79F00A910B6 /* Stub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,6 +341,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CF324AA1DCE97A87B0BC7602 /* Pods-Alter_Tests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -344,9 +354,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Alter_Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Alter_Example.app/Alter_Example";
 			};
 			name = Debug;
 		};
@@ -354,6 +365,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 77B032B81710D22044668EBE /* Pods-Alter_Tests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -362,9 +374,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tests/Alter_Tests-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Alter_Example.app/Alter_Example";
 			};
 			name = Release;
 		};
