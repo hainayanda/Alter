@@ -14,6 +14,8 @@ public protocol Alterable: Codable {
     /// If the value is `throwErrorOnUnknownKey`, it will throw error if decoder did not have key mapped.
     var decodeStrategy: DecodeStrategy { get }
     
+    subscript<Value>(mappedKey key: String) -> Value? { get set }
+    
     /// Default init
     init()
     
@@ -72,6 +74,10 @@ public extension Alterable {
         try decodeMappedProperties(from: decoder)
     }
     
+    /// Method to decode all mapped property from given `Decoder` and return `KeyedDecodingContainer`
+    /// - Parameter decoder: Decoder
+    /// - Throws: Error occurs when decode. If error is from Alter, it will be `AlterError`
+    /// - Returns: KeyedDecodingContainer of AlterCodingKey
     @discardableResult
     func decodeMappedProperties(from decoder: Decoder) throws -> KeyedDecodingContainer<AlterCodingKey> {
         let container = try decoder.container(keyedBy: AlterCodingKey.self)
@@ -88,15 +94,27 @@ public extension Alterable {
         return container
     }
     
+    /// Shortcut of `try JSONDecoder().decode(Self.self, from: jsonData)`
+    /// - Parameter jsonData: Data representation of JSON String
+    /// - Throws: Error occurs when decode
+    /// - Returns: Decoded JSON Data
     static func from(jsonData: Data) throws -> Self {
         try JSONDecoder().decode(Self.self, from: jsonData)
     }
     
+    /// Shortcut to decode JSON dictionary into Decoded Object using `JSONSerialization` and `JSONDecoder`
+    /// - Parameter json: JSON dictionary
+    /// - Throws: Error occurs when decode
+    /// - Returns: Decoded JSON
     static func from(json: [String: Any]) throws -> Self {
         let data = try JSONSerialization.data(withJSONObject: json, options: [])
         return try from(jsonData: data)
     }
     
+    /// Shortcut to decode JSON String into Decoded Object using `JSONDecoder`
+    /// - Parameter jsonString: String representation of JSON
+    /// - Throws: Error occurs when decode. If error is from Alter, it will be `AlterError`
+    /// - Returns: Decoded JSON String
     static func from(jsonString: String) throws -> Self {
         guard let jsonData = jsonString.data(using: .utf8) else {
             throw AlterError.whenAltering(
@@ -152,6 +170,10 @@ public extension Alterable {
         try encodeMappedProperties(to: encoder)
     }
     
+    /// Method to encode all mapped property from given `Encoder` and return `KeyedEncodingContainer`
+    /// - Parameter encoder: Encoder
+    /// - Throws: Error occurs when encode. If error is from Alter, it will be `AlterError`
+    /// - Returns: KeyedEncodingContainer of AlterCodingKey
     @discardableResult
     func encodeMappedProperties(to encoder: Encoder) throws -> KeyedEncodingContainer<AlterCodingKey> {
         var container = encoder.container(keyedBy: AlterCodingKey.self)
@@ -161,7 +183,7 @@ public extension Alterable {
         return container
     }
     
-    private func prepareProperty(_ alterableProperty: AlterableProperty, label: String) {
+    internal func prepareProperty(_ alterableProperty: AlterableProperty, label: String) {
         alterableProperty.key = alterableProperty.key ?? label.replacingOccurrences(
             of: "^_",
             with: "",
@@ -170,7 +192,7 @@ public extension Alterable {
         )
     }
     
-    var alterableProperties: [AlterableProperty] {
+    internal var alterableProperties: [AlterableProperty] {
         let reflection = Mirror(reflecting: self)
         return reflection.children.compactMap { (label, value) -> AlterableProperty?  in
             guard let label = label,
