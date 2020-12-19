@@ -34,7 +34,7 @@ extension Data {
         for _ in 0..<count {
             array.append(.random(in: 0..<255))
         }
-        return .init(bytes: array)
+        return .init(array)
     }
 }
 

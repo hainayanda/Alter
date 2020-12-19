@@ -122,9 +122,9 @@ public struct Base64ImageAlterer: TypeAlterer {
         let data: Data
         switch format {
         case .jpeg(let quality):
-            data = UIImageJPEGRepresentation(value, quality) ?? .init()
+            data = value.jpegData(compressionQuality: quality) ?? .init()
         case .png:
-            data = UIImagePNGRepresentation(value) ?? .init()
+            data = value.pngData() ?? .init()
         }
         return base64DataAlterer.alter(value: data)
     }
