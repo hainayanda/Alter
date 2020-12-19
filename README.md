@@ -6,6 +6,7 @@ With Alter, you don't need to create CodingKey to manually mapping.
 Alter using propertyWrapper and reflection to achive manual mapping.
 
 ![build](https://github.com/nayanda1/Alter/workflows/build/badge.svg)
+![test](https://github.com/nayanda1/Alter/workflows/test/badge.svg)
 [![Version](https://img.shields.io/cocoapods/v/Alter.svg?style=flat)](https://cocoapods.org/pods/Alter)
 [![License](https://img.shields.io/cocoapods/l/Alter.svg?style=flat)](https://cocoapods.org/pods/Alter)
 [![Platform](https://img.shields.io/cocoapods/p/Alter.svg?style=flat)](https://cocoapods.org/pods/Alter)
