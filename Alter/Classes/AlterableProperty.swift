@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol AlterableProperty: class, Codable {
+protocol AlterableProperty: class, Codable {
     var key: String? { get set }
     func trySet(_ some: Any?) throws
     func getAlteredValue() -> Any?
@@ -43,7 +43,7 @@ extension AlterableProperty {
 @propertyWrapper
 public class Mapped<Value: Codable>: AlterableProperty, Codable {
     
-    public var key: String?
+    var key: String?
     
     public var wrappedValue: Value
     
@@ -69,15 +69,15 @@ public class Mapped<Value: Codable>: AlterableProperty, Codable {
         try wrappedValue.encode(to: encoder)
     }
     
-    public func decode(using container: KeyedDecodingContainer<AlterCodingKey>) throws {
+    func decode(using container: KeyedDecodingContainer<AlterCodingKey>) throws {
         wrappedValue = try getValueFrom(container: container)
     }
     
-    public func encode(using container: inout KeyedEncodingContainer<AlterCodingKey>) throws {
+    func encode(using container: inout KeyedEncodingContainer<AlterCodingKey>) throws {
         try encode(using: &container, value: wrappedValue)
     }
     
-    public func trySet(_ some: Any?) throws {
+    func trySet(_ some: Any?) throws {
         guard let value = some as? Value else {
             throw AlterError.whenSet(
                 into: Value.self,
@@ -87,11 +87,11 @@ public class Mapped<Value: Codable>: AlterableProperty, Codable {
         wrappedValue = value
     }
     
-    public func getAlteredValue() -> Any? {
+    func getAlteredValue() -> Any? {
         wrappedValue
     }
     
-    public func getMappedValue() -> Any? {
+    func getMappedValue() -> Any? {
         wrappedValue
     }
 }
@@ -100,7 +100,7 @@ public class Mapped<Value: Codable>: AlterableProperty, Codable {
 public class AlterMapped<Value, AlteredValue, Alterer: TypeAlterer>
 : AlterableProperty, Codable where Alterer.Value == Value, Alterer.AlteredValue == AlteredValue {
     
-    public var key: String?
+    var key: String?
     
     public var wrappedValue: Value
     
@@ -138,16 +138,16 @@ public class AlterMapped<Value, AlteredValue, Alterer: TypeAlterer>
         try projectedValue.encode(to: encoder)
     }
     
-    public func decode(using container: KeyedDecodingContainer<AlterCodingKey>) throws {
+    func decode(using container: KeyedDecodingContainer<AlterCodingKey>) throws {
         let realValue: AlteredValue = try getValueFrom(container: container)
         wrappedValue = alterer.alterBack(value: realValue)
     }
     
-    public func encode(using container: inout KeyedEncodingContainer<AlterCodingKey>) throws {
+    func encode(using container: inout KeyedEncodingContainer<AlterCodingKey>) throws {
         try encode(using: &container, value: projectedValue)
     }
     
-    public func trySet(_ some: Any?) throws {
+    func trySet(_ some: Any?) throws {
         if let value = some as? Value {
             wrappedValue = value
         } else if let realValue = some as? AlteredValue {
@@ -160,11 +160,11 @@ public class AlterMapped<Value, AlteredValue, Alterer: TypeAlterer>
         }
     }
     
-    public func getAlteredValue() -> Any? {
+    func getAlteredValue() -> Any? {
         projectedValue
     }
     
-    public func getMappedValue() -> Any? {
+    func getMappedValue() -> Any? {
         wrappedValue
     }
     
