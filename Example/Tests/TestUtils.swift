@@ -74,6 +74,6 @@ extension String {
         ".,!?"
     }
     static func random(componentsOf letters: String = .alphaNumeric, length: Int = 10) -> String {
-        .init((0..<length).map{ _ in letters.randomElement()! })
+        .init((0..<length).map { _ in letters.randomElement()! })
     }
 }

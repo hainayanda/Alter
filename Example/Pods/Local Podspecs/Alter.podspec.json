@@ -1,22 +1,24 @@
 {
   "name": "Alter",
   "version": "0.1.0",
-  "summary": "A short description of Alter.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/24823437/Alter",
+  "summary": "Alter is framework to make mapping Codable property and key easier",
+  "description": "Alter is framework to make mapping Codable property and key easier.\nWith Alter, you don't need to create CodingKey to manually mapping.\nAlter using propertyWrapper and reflection to achive manual mapping.",
+  "homepage": "https://github.com/nayanda1/Alter",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "24823437": "nayanda1@outlook.com"
+    "nayanda": "nayanda1@outlook.com"
   },
   "source": {
-    "git": "https://github.com/24823437/Alter.git",
+    "git": "https://github.com/nayanda1/Alter.git",
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "9.0"
+    "ios": "9.3"
   },
-  "source_files": "Alter/Classes/**/*"
+  "source_files": "Alter/Classes/**/*",
+  "swift_versions": "5.0",
+  "swift_version": "5.0"
 }
