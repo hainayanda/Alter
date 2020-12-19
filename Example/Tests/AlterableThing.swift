@@ -133,13 +133,13 @@ struct ManualKeyedAlterable: AlterableThing, Alterable, Equatable {
     
     init(from decoder: Decoder) throws {
         self.init()
-        let container = try decodeMappable(from: decoder)
+        let container = try decodeMappedProperties(from: decoder)
         address = try container.decode(forKey: "address")
         item = try container.decode(forKey: "item")
     }
     
     func encode(to encoder: Encoder) throws {
-        var container = try encodeMappable(to: encoder)
+        var container = try encodeMappedProperties(to: encoder)
         try container.encode(value: address, forKey: "address")
         try container.encode(value: item, forKey: "item")
     }

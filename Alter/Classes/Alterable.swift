@@ -7,13 +7,31 @@
 
 import Foundation
 
+/// Alterable Protocol which conform Codable
 public protocol Alterable: Codable {
+    /// Decode strategy. Default is `ignoreUnknownKey`. Implement this to use custom strategy.
+    /// This property will be read when decoded using method `decodeMappedProperties(from:)` or default `init(from:)`.
+    /// If the value is `throwErrorOnUnknownKey`, it will throw error if decoder did not have key mapped.
     var decodeStrategy: DecodeStrategy { get }
+    
+    /// Default init
     init()
+    
+    /// Shortcut to convert Alterable to Data using `JSONEncoder`
+    /// - Parameter prettyPrinted: if true, it will use prettyPrinted outputFormatting
     func toJSONData(prettyPrinted: Bool) throws -> Data
+    
+    /// Shortcut to convert Alterable to Data using `JSONEncoder`
     func toJSONData() throws -> Data
+    
+    /// Shortcut to convert Alterable to String using `JSONEncoder`
+    /// - Parameter prettyPrinted: if true, it will use prettyPrinted outputFormatting
     func toJSONString(prettyPrinted: Bool) throws -> String
+    
+    /// Shortcut to convert Alterable to String using `JSONEncoder`
     func toJSONString() throws -> String
+    
+    /// Shortcut to convert Alterable to Dictionary using `JSONEncoder` and `JSONSerialization`
     func toJSON() throws -> [String: Any]
 }
 
@@ -51,11 +69,11 @@ public extension Alterable {
     
     init(from decoder: Decoder) throws {
         self.init()
-        try decodeMappable(from: decoder)
+        try decodeMappedProperties(from: decoder)
     }
     
     @discardableResult
-    func decodeMappable(from decoder: Decoder) throws -> KeyedDecodingContainer<AlterCodingKey> {
+    func decodeMappedProperties(from decoder: Decoder) throws -> KeyedDecodingContainer<AlterCodingKey> {
         let container = try decoder.container(keyedBy: AlterCodingKey.self)
         try alterableProperties.forEach { alterable in
             if decodeStrategy == .throwErrorOnUnknownKey,
@@ -131,11 +149,11 @@ public extension Alterable {
     }
     
     func encode(to encoder: Encoder) throws {
-        try encodeMappable(to: encoder)
+        try encodeMappedProperties(to: encoder)
     }
     
     @discardableResult
-    func encodeMappable(to encoder: Encoder) throws -> KeyedEncodingContainer<AlterCodingKey> {
+    func encodeMappedProperties(to encoder: Encoder) throws -> KeyedEncodingContainer<AlterCodingKey> {
         var container = encoder.container(keyedBy: AlterCodingKey.self)
         try alterableProperties.forEach { alterable in
             try alterable.encode(using: &container)
