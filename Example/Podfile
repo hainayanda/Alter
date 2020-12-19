@@ -1,0 +1,7 @@
+use_frameworks!
+target 'Alter_Tests' do
+  pod 'Alter', :path => '../'
+  
+  pod 'Quick', '~> 2.2.0'
+    pod 'Nimble', '~> 8.0.7'
+end

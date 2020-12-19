@@ -1,0 +1,6 @@
+framework module Pods_Alter_Tests {
+  umbrella header "Pods-Alter_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
