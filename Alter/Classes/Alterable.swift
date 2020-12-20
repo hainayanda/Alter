@@ -14,8 +14,6 @@ public protocol Alterable: Codable {
     /// If the value is `throwErrorOnUnknownKey`, it will throw error if decoder did not have key mapped.
     var decodeStrategy: DecodeStrategy { get }
     
-    subscript<Value>(mappedKey key: String) -> Value? { get set }
-    
     /// Default init
     init()
     
@@ -37,6 +35,13 @@ public protocol Alterable: Codable {
     func toJSON() throws -> [String: Any]
 }
 
+/// Alterable which could be accessed by using subscript
+public protocol MutableAlterable: Alterable {
+    
+    subscript<Value>(mappedKey key: String) -> Value? { get set }
+    
+}
+
 public enum DecodeStrategy {
     case ignoreUnknownKey
     case throwErrorOnUnknownKey
@@ -44,39 +49,6 @@ public enum DecodeStrategy {
 
 public extension Alterable {
     var decodeStrategy: DecodeStrategy { .ignoreUnknownKey }
-    
-    subscript<Value, Key: RawRepresentable>(mappedKey key: Key) -> Value? where Key.RawValue == String {
-        get {
-            return self[mappedKey: key.rawValue]
-        }
-        set {
-            self[mappedKey: key.rawValue] = newValue
-        }
-    }
-    
-    subscript<Value>(mappedKey key: String) -> Value? {
-        get {
-            guard let property = alterableProperties.first(where: { $0.key == key }) else {
-                debugPrint("Alter Error: cannot find mapped property with key \(key) in \(String(describing: Self.self))")
-                return nil
-            }
-            guard let value = property.getMappedValue() as? Value ?? property.getAlteredValue() as? Value else {
-                debugPrint("Alter Error: cannot cast property value into \(String(describing: Value.self)) in property with key \(key) inside \(String(describing: Self.self))")
-                return nil
-            }
-            return value
-        }
-        set {
-            guard let property = alterableProperties.first(where: { $0.key == key }) else {
-                return
-            }
-            do {
-                try property.trySet(newValue)
-            } catch {
-                debugPrint(error.localizedDescription)
-            }
-        }
-    }
     
     init(from decoder: Decoder) throws {
         self.init()
@@ -194,5 +166,41 @@ public extension Alterable {
     
     internal var alterableProperties: [AlterableProperty] {
         Mirror(reflecting: self).alterableProperties
+    }
+}
+
+public extension MutableAlterable {
+    
+    subscript<Value, Key: RawRepresentable>(mappedKey key: Key) -> Value? where Key.RawValue == String {
+        get {
+            return self[mappedKey: key.rawValue]
+        }
+        set {
+            self[mappedKey: key.rawValue] = newValue
+        }
+    }
+    
+    subscript<Value>(mappedKey key: String) -> Value? {
+        get {
+            guard let property = alterableProperties.first(where: { $0.key == key }) else {
+                debugPrint("Alter Error: cannot find mapped property with key \(key) in \(String(describing: Self.self))")
+                return nil
+            }
+            guard let value = property.getMappedValue() as? Value ?? property.getAlteredValue() as? Value else {
+                debugPrint("Alter Error: cannot cast property value into \(String(describing: Value.self)) in property with key \(key) inside \(String(describing: Self.self))")
+                return nil
+            }
+            return value
+        }
+        set {
+            guard let property = alterableProperties.first(where: { $0.key == key }) else {
+                return
+            }
+            do {
+                try property.trySet(newValue)
+            } catch {
+                debugPrint(error.localizedDescription)
+            }
+        }
     }
 }
