@@ -27,7 +27,7 @@
 		BB275660258DD79F00A910B6 /* Stub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stub.swift; sourceTree = "<group>"; };
 		C8A9DB21B3BD0CC9747C4C82 /* Pods_Alter_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Alter_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF324AA1DCE97A87B0BC7602 /* Pods-Alter_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alter_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Alter_Tests/Pods-Alter_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		D7BFB3DB8A543ACE55EB056C /* Alter.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Alter.podspec; path = ../Alter.podspec; sourceTree = "<group>"; };
+		D7BFB3DB8A543ACE55EB056C /* Alter.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Alter.podspec; path = ../Alter.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

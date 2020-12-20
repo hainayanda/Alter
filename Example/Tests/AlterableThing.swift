@@ -9,7 +9,7 @@
 import Foundation
 import Alter
 
-protocol AlterableThing {
+protocol AlterableThing: MutableAlterable {
     var id: Int { get set }
     var userName: String { get set }
     var firstName: String { get set }
@@ -53,7 +53,7 @@ extension AlterableThing where Self: Equatable {
     }
 }
 
-extension AlterableThing where Self: Alterable {
+extension AlterableThing {
     static func randomize() -> Self {
         var random = Self.init()
         random.id = .random(in: 100000000..<999999999)
@@ -97,7 +97,7 @@ class NestedAlterableItem: Alterable, Equatable {
     }
 }
 
-struct ManualKeyedAlterable: AlterableThing, Alterable, Equatable {
+struct ManualKeyedAlterable: AlterableThing, Equatable {
     
     var decodeStrategy: DecodeStrategy { .throwErrorOnUnknownKey }
     
@@ -145,7 +145,7 @@ struct ManualKeyedAlterable: AlterableThing, Alterable, Equatable {
     }
 }
 
-struct AutoKeyedAlterable: AlterableThing, Alterable, Equatable {
+struct AutoKeyedAlterable: AlterableThing, Equatable {
     
     var decodeStrategy: DecodeStrategy { .throwErrorOnUnknownKey }
     
@@ -180,7 +180,7 @@ struct AutoKeyedAlterable: AlterableThing, Alterable, Equatable {
     var item: NestedAlterableItem? = nil
 }
 
-struct AutoAlterable: AlterableThing, Alterable, Equatable {
+struct AutoAlterable: AlterableThing, Equatable {
     
     var decodeStrategy: DecodeStrategy { .throwErrorOnUnknownKey }
     

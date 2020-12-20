@@ -1,9 +1,9 @@
 # Alter
 Alter is framework to make mapping Codable property and key easier.
 
-With Alter, you don't need to create CodingKey to manually mapping.
+With Alter, you don't need to create CodingKey to manually mapping key and property.
 
-Alter using propertyWrapper and reflection to achive manual mapping.
+Alter using propertyWrapper and reflection to achive key property mapping.
 
 ![build](https://github.com/nayanda1/Alter/workflows/build/badge.svg)
 ![test](https://github.com/nayanda1/Alter/workflows/test/badge.svg)
@@ -18,8 +18,7 @@ Alter using propertyWrapper and reflection to achive manual mapping.
 
 ## Installation
 
-Alter is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Alter is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'Alter'
@@ -71,18 +70,22 @@ let userFromData: User = try! .from(jsonData: jsonData)
 
 The `Alterable` actually just a protocol that conform `Codable`. The only extendable function from Codable is that the Alterable will be use reflection to get all Mapped attributes and using it to do two way mapping.
 
-Since `Alterable` conform `Codable`, you could always do decoder or encoder just like Codable
+```swift
+public protocol Alterable: Codable
+```
+
+Since `Alterable` conform `Codable`, you could always do decode using codable decoder or encode using codable encoder just like Codable
 
 ```swift
 let user: User = getUserFromSomewhere()
-let propertyListData = try! PropertyListEncoder().encode(alterable)
+let propertyListData = try! PropertyListEncoder().encode(user)
 let decodedPropertyList = try! PropertyListDecoder().decode(User.self, from: propertyListData)
 
-let jsonData = try! JSONEncoder().encode(alterable)
-let decodedJsonData = try! JSONDecoder().decode(User.self, from: propertyListData)
+let jsonData = try! JSONEncoder().encode(user)
+let decodedJsonData = try! JSONDecoder().decode(User.self, from: jsonData)
 ```
 
-The real power of Alterable is the mapping feature. If the property name of Decoded data is different with property in Swift object, then you can pass the name of that property at the attribute instead of creating CodingKey enumeration.
+The real power of Alterable is the mapping feature which eliminate the requirement of enumeration CodingKey when doing key mapping manually. If the property name of Decoded data is different with property in Swift object, then you can pass the name of that property at the attribute instead of creating CodingKey enumeration. Those properties then will be mapped using those key.
 
 ```swift
 struct User: Alterable {
@@ -98,7 +101,7 @@ struct User: Alterable {
 }
 ```
 
-You could always do decode and encode manually by implement `init(from decoder: Decoder) throws` and `func encode(to encoder: Encoder) throws`. `Alterable` have some extensions to help you decode and encode manually
+You could always do decode and encode manually by implement `init(from:) throws` and `func encode(to:) throws`. `Alterable` have some extensions to help you implement decode and encode manually
 
 ```swift
 struct User: Alterable {
@@ -140,7 +143,7 @@ struct User: Alterable {
 
 ### Manual Mapping
 
-If you use non `Codable` type for property, or maybe you want to represent different data in Swift property other than real property, you could `@AlterMapped` attribute instead of `@Mapped` and pass `TypeAlterer` as converter. With this method, you don't need to implement `init(from decoder: Decoder) throws` and `func encode(to encoder: Encoder) throws` manually. 
+If you use non `Codable` type for property, or maybe you want to represent different data in Swift property other than real property, you could use `@AlterMapped` attribute instead of `@Mapped` and pass `TypeAlterer` as converter. With this method, you don't need to implement `init(from:) throws` and `func encode(to:) throws` manually. 
 
 ```swift
 struct User: Alterable {
@@ -224,12 +227,40 @@ public struct MyOwnDataAlterer: TypeAlterer {
 }
 ```
 
-## Extras
+### Mutability
 
-Any object that implement Alterable protocol can be treated like Dictionary.
+In most case we don't want our model to be mutable, But since Alter need the property to be mutable so it could be assigned on object creation, you could just make the setter private.
+
+```swift
+struct User: Alterable {
+    
+    @Mapped(key: "full_name")
+    private(set) var fullName: String = ""
+    
+    @Mapped(key: "user_name")
+    private(set) var userName: String = ""
+    
+    @Mapped
+    private(set) var age: Int = 0
+}
+```
+
+There's some extras if you want to have mutable ability to treat Alterable as Dictionary. Any object that implement MutableAlterable protocol can be treated like Dictionary.
+
+```swift
+struct MutableUser: MutableAlterable {
+    @Mapped(key: "user_name")
+    var userName: String? = nil
+    ...
+    ...
+    ...
+}
+```
+
+Then you could just treat it like dictionary
 
 ``` swift
-let user = User()
+let user = MutableUser()
 user[mappedKey: "user_name"] = "this is username"
 
 // will print "this is username"
@@ -241,4 +272,4 @@ let userName: String = user[mappedKey: "user_name"] ?? ""
 print(userName)
 ```
 
-The subscript can accept any data as long the data can be cast into property real type or altered type.
+The subscript can accept any type as long the type can be cast into property real type or altered type.
