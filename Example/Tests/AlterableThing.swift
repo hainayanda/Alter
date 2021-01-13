@@ -9,7 +9,7 @@
 import Foundation
 import Alter
 
-protocol AlterableThing: MutableAlterable {
+protocol AlterableThing: MutableAlterable, Codable {
     var id: Int { get set }
     var userName: String { get set }
     var firstName: String { get set }
@@ -72,7 +72,7 @@ extension AlterableThing {
 
 // MARK: JSON
 
-class NestedAlterableItem: Alterable, Equatable {
+class NestedAlterableItem: AlterCodable, Equatable {
     @Mapped
     var itemId: Int = -1
     

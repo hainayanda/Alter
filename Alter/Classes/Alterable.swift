@@ -7,8 +7,14 @@
 
 import Foundation
 
-/// Alterable Protocol which conform Codable
-public protocol Alterable: Codable {
+/// Alterable Protocol and Codable
+public typealias AlterCodable = Alterable & Codable
+
+/// MutableAlterable Protocol and Codable
+public typealias MutableAlterCodable = MutableAlterable & Codable
+
+/// Alterable Protocol
+public protocol Alterable {
     /// Decode strategy. Default is `ignoreUnknownKey`. Implement this to use custom strategy.
     /// This property will be read when decoded using method `decodeMappedProperties(from:)` or default `init(from:)`.
     /// If the value is `throwErrorOnUnknownKey`, it will throw error if decoder did not have key mapped.
@@ -47,7 +53,7 @@ public enum DecodeStrategy {
     case throwErrorOnUnknownKey
 }
 
-public extension Alterable {
+public extension Alterable where Self: Codable {
     var decodeStrategy: DecodeStrategy { .ignoreUnknownKey }
     
     init(from decoder: Decoder) throws {
@@ -169,7 +175,7 @@ public extension Alterable {
     }
 }
 
-public extension MutableAlterable {
+public extension MutableAlterable where Self: Codable {
     
     subscript<Value, Key: RawRepresentable>(mappedKey key: Key) -> Value? where Key.RawValue == String {
         get {
