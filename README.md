@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="256" height="256" src="Alter.png"/>
+  <img width="192" height="192" src="Alter.png"/>
 </p>
 
 # Alter
