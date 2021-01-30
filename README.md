@@ -1,3 +1,7 @@
+<p align="center">
+  <img width="256" height="256" src="Alter.png"/>
+</p>
+
 # Alter
 Alter is framework to make mapping Codable property and key easier.
 
