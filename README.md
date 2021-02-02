@@ -17,8 +17,8 @@ Alter using propertyWrapper and reflection to achive key property mapping.
 
 ## Requirements
 
-- Swift 5.0 or higher
-- iOS 9.3 or higher
+- Swift 5.1 or higher
+- iOS 10.0 or higher
 
 ## Installation
 
