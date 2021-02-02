@@ -102,6 +102,8 @@ public struct Base64DataAlterer: TypeAlterer {
 }
 
 #if canImport(UIKit)
+import UIKit
+
 public struct Base64ImageAlterer: TypeAlterer {
     public typealias Value = UIImage
     public typealias AlteredValue = String
