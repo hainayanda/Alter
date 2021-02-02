@@ -34,7 +34,7 @@ Nayanda Haberty, nayanda1@outlook.com
 
 ## License
 
-Alter is available under the MIT license. See the LICENSE file for more info.
+Alter is available under the MIT license. See the [LICENSE](LICENSE) file for more info.
 
 ## Usage
 
