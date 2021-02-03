@@ -36,7 +36,7 @@ First, create a Package.swift file and add this github url. It should look like:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nayanda1/Artisan.git", from: "1.2.0")
+    .package(url: "https://github.com/nayanda1/Alter.git", from: "1.2.0")
 ]
 ```
 
