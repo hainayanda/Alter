@@ -169,3 +169,27 @@ public class AlterMapped<Value, AlteredValue, Alterer: TypeAlterer>
     }
     
 }
+
+extension Mapped: Equatable where Value: Equatable {
+    public static func == (lhs: Mapped<Value>, rhs: Mapped<Value>) -> Bool {
+        lhs.wrappedValue == rhs.wrappedValue
+    }
+}
+
+extension AlterMapped: Equatable where Value: Equatable {
+    public static func == (lhs: AlterMapped<Value, AlteredValue, Alterer>, rhs: AlterMapped<Value, AlteredValue, Alterer>) -> Bool {
+        lhs.wrappedValue == rhs.wrappedValue
+    }
+}
+
+extension Mapped: Hashable where Value: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(wrappedValue)
+    }
+}
+
+extension AlterMapped: Hashable where Value: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(wrappedValue)
+    }
+}
