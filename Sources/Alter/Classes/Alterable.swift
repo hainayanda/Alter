@@ -69,12 +69,14 @@ public extension Alterable where Self: Codable {
     func decodeMappedProperties(from decoder: Decoder) throws -> KeyedDecodingContainer<AlterCodingKey> {
         let container = try decoder.container(keyedBy: AlterCodingKey.self)
         try alterableProperties.forEach { alterable in
-            if decodeStrategy == .throwErrorOnUnknownKey,
-               !container.allKeys.contains(where: { $0.stringValue == alterable.key }) {
-                throw AlterError.whenDecode(
-                    type: Self.self,
-                    reason: "key did not match any mapped property"
-                )
+            guard container.allKeys.contains(where: { $0.stringValue == alterable.key }) else {
+                if decodeStrategy == .throwErrorOnUnknownKey {
+                    throw AlterError.whenDecode(
+                        type: Self.self,
+                        reason: "key did not match any mapped property"
+                    )
+                }
+                return
             }
             try alterable.decode(using: container)
         }
