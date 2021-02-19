@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '10.0'
 
-  s.source_files = 'Sources/Alter/Classes/**/*'
+  s.source_files = 'Alter/Classes/**/*'
   
   # s.resource_bundles = {
   #   'Alter' => ['Alter/Assets/*.png']
