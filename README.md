@@ -30,17 +30,31 @@ Alter is available through [CocoaPods](https://cocoapods.org). To install it, si
 pod 'Alter'
 ```
 
-### Swift Package Manager
+### Swift Package Manager from XCode
 
-First, create a Package.swift file and add this github url. It should look like:
+- Add it using xcode menu **File > Swift Package > Add Package Dependency**
+- Add **https://github.com/nayanda1/Alter.git** as Swift Package url
+- Set rules at **version**, with **Up to Next Major** option and put **1.2.0** as its version
+- Click next and wait
+
+### Swift Package Manager from Package.swift
+
+Add as your target dependency in **Package.swift**
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nayanda1/Alter.git", from: "1.2.0")
+    .package(url: "https://github.com/nayanda1/Alter.git", .upToNextMajor(from: "1.2.0"))
 ]
 ```
 
-Then run swift build to build the dependency before you use it
+Use it in your target as `Alter`
+
+```swift
+ .target(
+    name: "MyModule",
+    dependencies: ["Alter"]
+)
+```
 
 ## Author
 
