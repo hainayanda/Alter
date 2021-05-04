@@ -20,6 +20,13 @@ public protocol Alterable {
     /// If the value is `throwErrorOnUnknownKey`, it will throw error if decoder did not have key mapped.
     var decodeStrategy: DecodeStrategy { get }
     
+    /// Property Decode Error Handling. Default is `ignoreError`. Implement this to use custom strategy.
+    /// This property will be read when decoded using method `decodeMappedProperties(from:)` or default `init(from:)`.
+    /// If the value is `ignoreError`, it will not throw error when fail to decode properties and use default value instead
+    /// If the value is `throwError`, it will throw error when fail to decode properties
+    /// If the value is `handleError` it will run closure provided by `handleError` enum when fail to decode properties
+    var propertyDecodeErrorHandling: PropertyDecodeErrorHandling { get }
+    
     /// Default init
     init()
     
@@ -53,8 +60,16 @@ public enum DecodeStrategy {
     case throwErrorOnUnknownKey
 }
 
+public enum PropertyDecodeErrorHandling {
+    public typealias ErrorHandler = (String, Error) throws -> Void
+    case ignoreError
+    case throwError
+    case handleError(ErrorHandler)
+}
+
 public extension Alterable where Self: Codable {
     var decodeStrategy: DecodeStrategy { .ignoreUnknownKey }
+    var propertyDecodeErrorHandling: PropertyDecodeErrorHandling { .ignoreError }
     
     init(from decoder: Decoder) throws {
         self.init()
@@ -69,7 +84,8 @@ public extension Alterable where Self: Codable {
     func decodeMappedProperties(from decoder: Decoder) throws -> KeyedDecodingContainer<AlterCodingKey> {
         let container = try decoder.container(keyedBy: AlterCodingKey.self)
         try alterableProperties.forEach { alterable in
-            guard container.allKeys.contains(where: { $0.stringValue == alterable.key }) else {
+            guard let key = alterable.key else { return }
+            guard container.allKeys.contains(where: { $0.stringValue == key }) else {
                 if decodeStrategy == .throwErrorOnUnknownKey {
                     throw AlterError.whenDecode(
                         type: Self.self,
@@ -78,7 +94,18 @@ public extension Alterable where Self: Codable {
                 }
                 return
             }
-            try alterable.decode(using: container)
+            do {
+                try alterable.decode(using: container)
+            } catch {
+                switch propertyDecodeErrorHandling {
+                case .ignoreError:
+                    return
+                case .handleError(let handler):
+                    try handler(key, error)
+                case .throwError:
+                    throw error
+                }
+            }
         }
         return container
     }
