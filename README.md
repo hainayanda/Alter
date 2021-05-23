@@ -28,14 +28,14 @@ Alter using propertyWrapper and reflection to achive key property mapping.
 Alter is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Alter'
+pod 'Alter', '~> 1.2.8'
 ```
 
 ### Swift Package Manager from XCode
 
 - Add it using xcode menu **File > Swift Package > Add Package Dependency**
 - Add **https://github.com/nayanda1/Alter.git** as Swift Package url
-- Set rules at **version**, with **Up to Next Major** option and put **1.2.7** as its version
+- Set rules at **version**, with **Up to Next Major** option and put **1.2.8** as its version
 - Click next and wait
 
 ### Swift Package Manager from Package.swift
@@ -44,7 +44,7 @@ Add as your target dependency in **Package.swift**
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nayanda1/Alter.git", .upToNextMajor(from: "1.2.7"))
+    .package(url: "https://github.com/nayanda1/Alter.git", .upToNextMajor(from: "1.2.8"))
 ]
 ```
 
@@ -137,7 +137,7 @@ let decodedJsonData = try! JSONDecoder().decode(User.self, from: jsonData)
 The real power of `Alterable` is the mapping feature which eliminate the requirement of enumeration `CodingKey` when doing key mapping manually. If the property name of Decoded data is different with property in Swift object, then you can pass the name of that property at the attribute instead of creating `CodingKey` enumeration. Those properties then will be mapped using those key.
 
 ```swift
-struct User: Alterable {
+struct User: AlterCodable {
     
     @Mapped(key: "full_name")
     var fullName: String = ""
@@ -273,6 +273,41 @@ public struct MyOwnDataAlterer: TypeAlterer {
     public func alterBack(value: String) -> Data {
         Data(base64Encoded: value) ?? .init()
     }
+}
+```
+
+### Nested Property
+
+Alter can map nested property by using `.` example
+
+instead of doing this:
+
+```swift
+struct Event: AlterCodable {
+    
+    @Mapped
+    var title: String = ""
+    
+    @Mapped
+    var ticket: Ticket = .init(price: 0)
+    
+    struct Ticket: AlterCodable {
+        @Mapped
+        var price: Double = 0
+    }
+}
+```
+
+you can skip Ticket object by using "ticket.price" key instead:
+
+```swift
+struct Event: AlterCodable {
+    
+    @Mapped
+    var title: String = ""
+    
+    @Mapped(key: "ticket.price")
+    var price: Double = 0
 }
 ```
 

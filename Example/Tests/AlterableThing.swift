@@ -64,7 +64,7 @@ extension AlterableThing {
         random.lastAccessedTime = .init()
         random.relatedData = .random()
         random.trackedAccessedTime = [random.lastAccessedTime] + .random(maxCount: 20, from: .init(timeIntervalSince1970: 1606780800), to: .init())
-        random.address = .random(componentsOf: .commonSentencesCharacters, length: .random(in: 100..<1000))
+        random.address = .random(componentsOf: .alphabet, length: .random(in: 10..<20))
         random.item = .random()
         return random
     }
@@ -134,13 +134,13 @@ struct ManualKeyedAlterable: AlterableThing, Equatable {
     init(from decoder: Decoder) throws {
         self.init()
         let container = try decodeMappedProperties(from: decoder)
-        address = try container.decode(forKey: "address")
+        address = try container.decode(forKey: "address.city")
         item = try container.decode(forKey: "item")
     }
     
     func encode(to encoder: Encoder) throws {
         var container = try encodeMappedProperties(to: encoder)
-        try container.encode(value: address, forKey: "address")
+        try container.encode(value: address, forKey: "address.city")
         try container.encode(value: item, forKey: "item")
     }
 }
@@ -173,7 +173,7 @@ struct AutoKeyedAlterable: AlterableThing, Equatable {
     @AlterMapped(key: "tracked_accessed_time", alterer: UnixLongDateAlterer().forArray)
     var trackedAccessedTime: [Date] = []
     
-    @Mapped
+    @Mapped(key: "address.city")
     var address: String = ""
     
     @Mapped
@@ -208,7 +208,7 @@ struct AutoAlterable: AlterableThing, Equatable {
     @AlterMapped(alterer: UnixLongDateAlterer().forArray)
     var trackedAccessedTime: [Date] = []
     
-    @Mapped
+    @Mapped(key: "address.city")
     var address: String = ""
     
     @Mapped

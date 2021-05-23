@@ -362,9 +362,10 @@ class IntegrationTests: QuickSpec {
 
 fileprivate func assignUsingSubscript<Object: Alterable & AlterableThing>(from alterable: Object, into destination: inout Object) {
     let map = try! alterable.toJSON()
-    for pair in map {
+    for pair in map where pair.key != "address" {
         destination[mappedKey: pair.key] = pair.value
     }
+    destination[mappedKey: "address.city"] = (map["address"] as? [String: String])?["city"]
     destination[mappedKey: "item"] = alterable.item
 }
 
@@ -415,7 +416,7 @@ fileprivate func assertKeyedStringJSON(_ jsonString: String, shouldSameWith alte
     }
     expect(jsonString).to(
         equal(
-            "{\"address\":\"\(alterable.address)\","
+            "{\"address\":{\"city\":\"\(alterable.address)\"},"
                 + "\"birth_date\":\"\(birthDate ?? "null")\","
                 + "\"last_name\":\"\(alterable.lastName ?? "null")\","
                 + "\"last_accessed_time\":\(lastAccessedTime ?? 0),"
@@ -441,7 +442,7 @@ fileprivate func assertAutoStringJSON(_ jsonString: String, shouldSameWith alter
     }
     expect(jsonString).to(
         equal(
-            "{\"address\":\"\(alterable.address)\","
+            "{\"address\":{\"city\":\"\(alterable.address)\"},"
                 + "\"firstName\":\"\(alterable.firstName)\","
                 + "\"id\":\(alterable.id),"
                 + "\"userName\":\"\(alterable.userName)\","
@@ -468,7 +469,7 @@ fileprivate func assertKeyedJSON(_ json: [String: Any], shouldSameWith alterable
     expect(json["birth_date"] as? String).to(equal(birthDate))
     expect(json["last_accessed_time"] as? Int64).to(equal(lastAccessedTime))
     expect(json["related_data"] as? String).to(equal(relatedData))
-    expect(json["address"] as? String).to(equal(alterable.address))
+    expect((json["address"] as? [String: String])?["city"]).to(equal(alterable.address))
     guard let array = json["tracked_accessed_time"] as? [Int64] else {
         fail()
         return
@@ -500,7 +501,7 @@ fileprivate func assertAutoJSON(_ json: [String: Any], shouldSameWith alterable:
     expect(json["birthDate"] as? String).to(equal(birthDate))
     expect(json["lastAccessedTime"] as? Int64).to(equal(lastAccessedTime))
     expect(json["relatedData"] as? String).to(equal(relatedData))
-    expect(json["address"] as? String).to(equal(alterable.address))
+    expect((json["address"] as? [String: String])?["city"]).to(equal(alterable.address))
     guard let array = json["trackedAccessedTime"] as? [Int64] else {
         fail()
         return

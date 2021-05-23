@@ -22,7 +22,9 @@ var stubKeyedJSONString: String = """
         "last_accessed_time": 1608854400000,
         "related_data": "YWJjMTIzIT8kKiYoKSctPUB+",
         "tracked_accessed_time": [1608854400, 1608854000, 1608850400, 1608804400, 1608054400],
-        "address": "Jakarta",
+        "address": {
+            "city": "Jakarta"
+        },
         "item": {
             "itemId": 10051991,
             "itemName": "itemname",
@@ -40,7 +42,9 @@ var stubAutoJSONString: String = """
         "lastAccessedTime": 1608854400000,
         "relatedData": "YWJjMTIzIT8kKiYoKSctPUB+",
         "trackedAccessedTime": [1608854400, 1608854000, 1608850400, 1608804400, 1608054400],
-        "address": "Jakarta",
+        "address": {
+            "city": "Jakarta"
+        },
         "item": {
             "itemId": 10051991,
             "itemName": "itemname",
@@ -58,7 +62,9 @@ var stubKeyedJSON: [String: Any] = [
     "last_accessed_time": 1608854400000,
     "related_data": "YWJjMTIzIT8kKiYoKSctPUB+",
     "tracked_accessed_time": [1608854400, 1608854000, 1608850400, 1608804400, 1608054400],
-    "address": "Jakarta",
+    "address": [
+        "city": "Jakarta"
+    ],
     "item": [
         "itemId": 10051991,
         "itemName": "itemname",
@@ -75,7 +81,9 @@ var stubAutoJSON: [String: Any] = [
     "lastAccessedTime": 1608854400000,
     "relatedData": "YWJjMTIzIT8kKiYoKSctPUB+",
     "trackedAccessedTime": [1608854400, 1608854000, 1608850400, 1608804400, 1608054400],
-    "address": "Jakarta",
+    "address": [
+        "city": "Jakarta"
+    ],
     "item": [
         "itemId": 10051991,
         "itemName": "itemname",
