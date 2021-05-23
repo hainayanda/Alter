@@ -84,8 +84,8 @@ public extension Alterable where Self: Codable {
     func decodeMappedProperties(from decoder: Decoder) throws -> KeyedDecodingContainer<AlterCodingKey> {
         let container = try decoder.container(keyedBy: AlterCodingKey.self)
         try alterableProperties.forEach { alterable in
-            guard let key = alterable.key else { return }
-            guard container.allKeys.contains(where: { $0.stringValue == key }) else {
+            guard let rootKey = alterable.rootKey else { return }
+            guard container.allKeys.contains(where: { $0.stringValue == rootKey }) else {
                 if decodeStrategy == .throwErrorOnUnknownKey {
                     throw AlterError.whenDecode(
                         type: Self.self,
@@ -101,7 +101,7 @@ public extension Alterable where Self: Codable {
                 case .ignoreError:
                     return
                 case .handleError(let handler):
-                    try handler(key, error)
+                    try handler(rootKey, error)
                 case .throwError:
                     throw error
                 }

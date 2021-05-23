@@ -9,6 +9,10 @@ import Foundation
 
 protocol AlterableProperty: class, Codable {
     var key: String? { get set }
+    var nestedKeys: [String] { get }
+    var rootKey: String? { get }
+    var propertyKey: String? { get }
+    var isNested: Bool { get }
     func trySet(_ some: Any?) throws
     func getAlteredValue() -> Any?
     func getMappedValue() -> Any?
@@ -17,10 +21,55 @@ protocol AlterableProperty: class, Codable {
 }
 
 extension AlterableProperty {
+    public var nestedKeys: [String] {
+        guard let key = key else {
+            return []
+        }
+        return key.components(separatedBy: ".")
+    }
+    
+    public var rootKey: String? {
+        nestedKeys.first
+    }
+    
+    public var propertyKey: String? {
+        nestedKeys.last
+    }
+    
+    public var isNested: Bool {
+        nestedKeys.count > 1
+    }
+}
+
+extension AlterableProperty {
+    
     func encode<ToEncode: Encodable>(
         using container: inout KeyedEncodingContainer<AlterCodingKey>,
         value: ToEncode) throws {
-        guard let key = self.key else {
+        guard isNested else {
+            try encodeNonNested(using: &container, value: value)
+            return
+        }
+        try encodeNested(using: &container, value: value)
+    }
+    
+    func encodeNested<ToEncode: Encodable>(
+        using container: inout KeyedEncodingContainer<AlterCodingKey>,
+        value: ToEncode) throws {
+        var nestedContainer = container
+        for (index, nestedKey) in nestedKeys.enumerated() where index + 1 != nestedKeys.count {
+            nestedContainer = nestedContainer.nestedContainer(
+                keyedBy: AlterCodingKey.self,
+                forKey: AlterCodingKey(stringValue: nestedKey)
+            )
+        }
+        try encodeNonNested(using: &nestedContainer, value: value)
+    }
+    
+    func encodeNonNested<ToEncode: Encodable>(
+        using container: inout KeyedEncodingContainer<AlterCodingKey>,
+        value: ToEncode) throws {
+        guard let key = self.propertyKey else {
             throw AlterError.whenEncode(
                 type: ToEncode.self,
                 reason: "AlterableProperty did not have key"
@@ -30,13 +79,27 @@ extension AlterableProperty {
     }
     
     func getValueFrom<ToDecode: Decodable>(container: KeyedDecodingContainer<AlterCodingKey>) throws -> ToDecode {
-        guard let codingKey = container.allKeys.first(where: { $0.stringValue == key }) else {
+        guard let codingKey = container.allKeys.first(where: { $0.stringValue == rootKey }) else {
             throw AlterError.whenDecode(
                 type: Self.self,
                 reason: "property key did not matched any KeyedDecodingContainer keys"
             )
         }
-        return try container.decode(ToDecode.self, forKey: codingKey)
+        guard isNested else {
+            return try container.decode(ToDecode.self, forKey: codingKey)
+        }
+        var nestedContainer = container
+        var nestedCodingKey = codingKey
+        for (index, nestedKey) in nestedKeys.enumerated() {
+            nestedCodingKey = AlterCodingKey(stringValue: nestedKey)
+            if index + 1 != nestedKeys.count {
+                nestedContainer = try nestedContainer.nestedContainer(
+                    keyedBy: AlterCodingKey.self,
+                    forKey: nestedCodingKey
+                )
+            }
+        }
+        return try nestedContainer.decode(ToDecode.self, forKey: nestedCodingKey)
     }
 }
 
