@@ -12,6 +12,7 @@ Alter using propertyWrapper and reflection to achive key property mapping.
 [![codebeat badge](https://codebeat.co/badges/d68516a9-4105-4afd-882c-46cb5cff413f)](https://codebeat.co/projects/github-com-nayanda1-alter-main)
 ![build](https://github.com/nayanda1/Alter/workflows/build/badge.svg)
 ![test](https://github.com/nayanda1/Alter/workflows/test/badge.svg)
+[![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-Compatible-brightgreen)](https://swift.org/package-manager/)
 [![Version](https://img.shields.io/cocoapods/v/Alter.svg?style=flat)](https://cocoapods.org/pods/Alter)
 [![License](https://img.shields.io/cocoapods/l/Alter.svg?style=flat)](https://cocoapods.org/pods/Alter)
 [![Platform](https://img.shields.io/cocoapods/p/Alter.svg?style=flat)](https://cocoapods.org/pods/Alter)
