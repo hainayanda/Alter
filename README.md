@@ -28,14 +28,14 @@ Alter using propertyWrapper and reflection to achive key property mapping.
 Alter is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Alter', '~> 1.2.7'
+pod 'Alter', '~> 1.2.8'
 ```
 
 ### Swift Package Manager from XCode
 
 - Add it using xcode menu **File > Swift Package > Add Package Dependency**
 - Add **https://github.com/nayanda1/Alter.git** as Swift Package url
-- Set rules at **version**, with **Up to Next Major** option and put **1.2.7** as its version
+- Set rules at **version**, with **Up to Next Major** option and put **1.2.8** as its version
 - Click next and wait
 
 ### Swift Package Manager from Package.swift
@@ -44,7 +44,7 @@ Add as your target dependency in **Package.swift**
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nayanda1/Alter.git", .upToNextMajor(from: "1.2.7"))
+    .package(url: "https://github.com/nayanda1/Alter.git", .upToNextMajor(from: "1.2.8"))
 ]
 ```
 

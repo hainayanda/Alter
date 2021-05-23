@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Alter'
-  s.version          = '1.2.7'
+  s.version          = '1.2.8'
   s.summary          = 'Alter is framework to make mapping Codable property and key easier'
 
 # This description is used to generate tags and improve search results.
