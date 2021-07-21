@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Alter'
-  s.version          = '1.2.8'
+  s.version          = '1.2.9'
   s.summary          = 'Alter is framework to make mapping Codable property and key easier'
 
 # This description is used to generate tags and improve search results.
@@ -23,11 +23,11 @@ Pod::Spec.new do |s|
   Alter using propertyWrapper and reflection to achive manual mapping.
                        DESC
 
-  s.homepage         = 'https://github.com/nayanda1/Alter'
+  s.homepage         = 'https://github.com/hainayanda/Alter'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'nayanda' => 'nayanda1@outlook.com' }
-  s.source           = { :git => 'https://github.com/nayanda1/Alter.git', :tag => s.version.to_s }
+  s.author           = { 'nayanda' => 'hainayanda@outlook.com' }
+  s.source           = { :git => 'https://github.com/hainayanda/Alter.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'

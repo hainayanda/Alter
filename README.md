@@ -9,9 +9,9 @@ With Alter, you don't need to create CodingKey to manually mapping key and prope
 
 Alter using propertyWrapper and reflection to achive key property mapping.
 
-[![codebeat badge](https://codebeat.co/badges/d68516a9-4105-4afd-882c-46cb5cff413f)](https://codebeat.co/projects/github-com-nayanda1-alter-main)
-![build](https://github.com/nayanda1/Alter/workflows/build/badge.svg)
-![test](https://github.com/nayanda1/Alter/workflows/test/badge.svg)
+[![codebeat badge](https://codebeat.co/badges/d68516a9-4105-4afd-882c-46cb5cff413f)](https://codebeat.co/projects/github-com-hainayanda-alter-main)
+![build](https://github.com/hainayanda/Alter/workflows/build/badge.svg)
+![test](https://github.com/hainayanda/Alter/workflows/test/badge.svg)
 [![SwiftPM Compatible](https://img.shields.io/badge/SwiftPM-Compatible-brightgreen)](https://swift.org/package-manager/)
 [![Version](https://img.shields.io/cocoapods/v/Alter.svg?style=flat)](https://cocoapods.org/pods/Alter)
 [![License](https://img.shields.io/cocoapods/l/Alter.svg?style=flat)](https://cocoapods.org/pods/Alter)
@@ -29,14 +29,14 @@ Alter using propertyWrapper and reflection to achive key property mapping.
 Alter is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Alter', '~> 1.2.8'
+pod 'Alter', '~> 1.2.9'
 ```
 
 ### Swift Package Manager from XCode
 
 - Add it using xcode menu **File > Swift Package > Add Package Dependency**
-- Add **https://github.com/nayanda1/Alter.git** as Swift Package url
-- Set rules at **version**, with **Up to Next Major** option and put **1.2.8** as its version
+- Add **https://github.com/hainayanda/Alter.git** as Swift Package url
+- Set rules at **version**, with **Up to Next Major** option and put **1.2.9** as its version
 - Click next and wait
 
 ### Swift Package Manager from Package.swift
@@ -45,7 +45,7 @@ Add as your target dependency in **Package.swift**
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/nayanda1/Alter.git", .upToNextMajor(from: "1.2.8"))
+    .package(url: "https://github.com/hainayanda/Alter.git", .upToNextMajor(from: "1.2.9"))
 ]
 ```
 
@@ -60,7 +60,7 @@ Use it in your target as `Alter`
 
 ## Author
 
-Nayanda Haberty, nayanda1@outlook.com
+Nayanda Haberty, hainayanda@outlook.com
 
 ## License
 
